@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zomato Login</title>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <style>
+ 
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url(https://img.freepik.com/free-photo/ingredients-grilled-wood-flame-plate-generative-ai_188544-8881.jpg); 
+       background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    .container {
+      max-width: 400px;
+      margin: 80px auto;
+      padding: 20px;
+      backdrop-filter: blur(20px);
+    }
+
+    .logo {
+      text-align: center;
+    }
+
+    .logo img {
+      width: 15%;
+      height: 10%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #162938;
+    }
+
+    .container{
+      border: 2px solid crimson;
+      border-radius: 10%;
+    }
+    .container1{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .input-box{
+      position: relative;
+      width: 100%;
+      height: 50%;
+      border-bottom: 2px solid #162938;
+      margin: 10% 0;
+    }
+
+    .input-box label{
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      transform: translateY(-50%);
+      font-size: 1em;
+      color: #162938;
+      font-weight: 500;
+      pointer-events: none;
+      transition: .5s;
+    }
+      .input-box input:focus~label, 
+      .input-box input:valid~label{
+        top:  -15px;
+      }
+    .input-box input{
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 1em;   
+      font-weight: 600;
+      padding: 0 35px 0 5px;
+     }
+      
+    .input-box .icon {
+      position: absolute;
+      right: 8px;
+      font-size: 1.2em;
+      color: #162938;
+      top: -5px;
+    }
+    .remember-forgot{
+      font-size: .9em;
+      color: #162938;
+      font-weight: 500;
+      margin: -15px 0 15px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .remember-forgot label input{
+      accent-color: #162938;
+    }
+
+    .remember-forgot a{
+    color: #162938;
+    text-decoration: none;
+    }
+
+    .remember-forgot a:hover{
+      text-decoration: underline;
+    }
+
+    .btn{
+      width: 100%;
+      height: 45px;
+      background: #162938;
+      border: none;
+      outline: none;
+      border-radius: 5%;
+      cursor: pointer;
+      font-size: 1em;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .login-register{
+      font-size: .9em;
+    color: #162938;
+      text-align: center;
+      font-weight: 500;
+      margin: 25px 0 10px;
+    }
+
+    .login-register p a{
+    color: #162938;
+    text-decoration: none;
+    font-weight: 600;
+    }
+
+    .login-register p a:hover{
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Zomato_logo.png" alt="Zomato Logo">
+    </div>
+    <h2>LOGIN</h2>
+    <div class="container1">
+    <form id="login">
+      <div class="input-box">
+        <span class="icon"><ion-icon name="mail"></ion-icon></span>
+        <input type="email" id="email" required>
+        <label for="email">Email</label>
+      </div>
+        <div class="input-box">
+          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+          <input type="password" id="password" required>
+          <label for="password">Password</label>
+        </div>
+        <div class="remember-forgot">
+          <label><input type="checkbox">Remember me</label>
+          <a href="#" id="forgot-password">Forgot Password</a>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+        <div class="login-register">
+          <p>Don't have an account?<a href="index.html" class="register-link">Register</a></p>
+        </div>
+    </form>
+  </div> 
+  </div>
+   
+  <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+        const firebaseConfig = {
+          apiKey: "AIzaSyCPfYyKVqFXEwdgEvWdH5Q1gQHDr1eBglI",
+          authDomain: "yummify-ef297.firebaseapp.com",
+          projectId: "yummify-ef297",
+          storageBucket: "yummify-ef297.firebasestorage.app",
+          messagingSenderId: "611842898669",
+          appId: "1:611842898669:web:98b056c150c3f82692aae4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+         let login = document.getElementById("login")
+         login.addEventListener("submit", function(e){
+          e.preventDefault();
+          let email = document.getElementById("email").value;
+          let password = document.getElementById("password").value;
+          signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                 const user = userCredential.user;
+                 window.location.href = "homepage.html"; 
+               })
+           .catch((error) => {
+              const errorCode = error.code;
+                 const errorMessage = error.message;
+                 alert(errorMessage);
+            });
+          })
+            import {sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+
+            let forgot = document.getElementById("forgot-password")
+            forgot.addEventListener("click",function(){
+              let email = document.getElementById("email").value;
+              sendPasswordResetEmail(auth, email)
+               .then(() => {
+                 alert("email sent successfully")
+              })
+              .catch((error) => {
+               const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorMessage)
+             });
+          })
+        
+
+  </script>
+           
+</body>
+</html> 

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zomato</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #e60000; /* Zomato Red */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .navbar .logo a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .menu a:hover {
+            color: blue;
+        }
+
+        .navbar .search-bar input {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 20px;
+            width: 200px;
+        }
+
+        .navbar .search-bar button {
+            padding: 5px 10px;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .navbar .search-bar button:hover {
+            background-color: cadetblue;
+        }
+            
+        #btn{
+            padding: 5px 10px;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        #btn:hover{
+            background-color: cadetblue;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar .menu {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            <a href="#">Zomato</a>
+        </div>
+
+        <div class="menu">
+            <a href="#"><i class="fa-solid fa-house"></i>Home</a>
+            <a href="categories.html"><i class="fa-solid fa-list"></i>Categories</a>
+            <a href="cart.html" id="cart-icon"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+            <a href="contact.html"><i class="fa-solid fa-phone"></i>Contact</a>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search for restaurants, dishes...">
+            <button>Search</button>
+        </div>
+        <div>
+           <a href="login.html"> <button id="btn">Logout</button></a>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to Zomato!</h1>
+            <p>Discover the best places to eat, right at your fingertips.</p>
+            <button onclick="window.location.href='#'">Explore Now</button>
+        </section>
+        <section class="slider">
+            <div class="slide-container">
+                <div class="slide" id="slide-1">
+                    <img src="https://b.zmtcdn.com/data/pictures/4/19426044/39d17b1755925262fa6dafebe2bc4424.jpg?fit=around|960:500&crop=960:500;*,*" alt="Food 1">
+                </div>
+                <div class="slide" id="slide-2">
+                    <img src="https://assets.zeezest.com/blogs/PROD_ZZ%20SEO%20Image%20Resizing%202%20(8)_1681535538777_thumb_500.png" alt="Food 2">
+                </div>
+                <div class="slide" id="slide-3">
+                    <img src="https://png.pngtree.com/background/20230610/original/pngtree-many-different-kinds-of-dishes-and-foods-picture-image_3101380.jpg" alt="Food 3">
+                </div>
+            </div>
+            <div class="slider-nav">
+                <span onclick="prevSlide()">&#10094;</span>
+                <span onclick="nextSlide()">&#10095;</span>
+            </div>
+        </section>
+    </main>
+
+
+    <section id="restaurant-list" class="restaurant-list">
+        <div class="restaurant-card" data-name="Paradise Biryani" data-price="350" data-image="https://media-assets.swiggy.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/RX_THUMBNAIL/IMAGES/VENDOR/2024/5/9/33282528-7b2c-458b-ace7-76ce58009158_1854.JPG">
+            <img src="https://media-assets.swiggy.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/RX_THUMBNAIL/IMAGES/VENDOR/2024/5/9/33282528-7b2c-458b-ace7-76ce58009158_1854.JPG" alt="Restaurant 1">
+            <h3>Paradise Biryani</h3>
+            <p>350/- for one</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Paneer Tikka" data-price="350" data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc3LSOzmXZH7P_CrWlnuNdT50tAlwJGM-0aA&s">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc3LSOzmXZH7P_CrWlnuNdT50tAlwJGM-0aA&s" alt="Restaurant 3">
+            <h3>Paneer Tikka</h3>
+            <p>350/- for single</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Chapati/Roti" data-price="95" data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTQmgTWYCPjmKu5foC2ktXjv4JfQqEFdLFqQ&s">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTQmgTWYCPjmKu5foC2ktXjv4JfQqEFdLFqQ&s" alt="Restaurant 3">
+            <h3>Chapati/Roti</h3>
+            <p>95/-</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Aloo curry" data-price="125" data-image="https://ministryofcurry.com/wp-content/uploads/2017/04/Dum-Aloo-3-1.jpg">
+            <img src="https://ministryofcurry.com/wp-content/uploads/2017/04/Dum-Aloo-3-1.jpg" alt="Restaurant 3">
+            <h3>Pot Dum Aloo</h3>
+            <p>125/-</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Egg Biryani" data-price="350" data-image="https://vaya.in/recipes/wp-content/uploads/2019/01/Hyderabadi-Egg-Dum-Biryani.jpg">
+            <img src="https://vaya.in/recipes/wp-content/uploads/2019/01/Hyderabadi-Egg-Dum-Biryani.jpg" alt="Restaurant 3">
+            <h3>Egg Biryani</h3>
+            <p>350/- for single</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Paneer Biryani" data-price="250" data-image="https://www.cookwithmanali.com/wp-content/uploads/2020/05/Instant-Pot-Paneer-Biryani.jpg">
+            <img src="https://www.cookwithmanali.com/wp-content/uploads/2020/05/Instant-Pot-Paneer-Biryani.jpg" alt="Restaurant 3">
+            <h3>Paneer Biryani</h3>
+            <p>250/- for single</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Noodles" data-price="75" data-image="https://elavegan.com/wp-content/uploads/2020/10/eating-vegetable-stir-fry-noodles-with-chopsticks.jpg">
+            <img src="https://elavegan.com/wp-content/uploads/2020/10/eating-vegetable-stir-fry-noodles-with-chopsticks.jpg" alt="Restaurant 3">
+            <h3>Noodles</h3>
+            <p>75/- for single</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Munchurian" data-price="65" data-image="https://i.ytimg.com/vi/xkMbJCtaaqA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDrMLgdijp9TJ92IUYugdtisp2tIw">
+            <img src="https://i.ytimg.com/vi/xkMbJCtaaqA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDrMLgdijp9TJ92IUYugdtisp2tIw" alt="Restaurant 3">
+            <h3>Munchurian</h3>
+            <p>65/- for single</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Strawberry milkshake" data-price="550" data-image="https://www.unicornsinthekitchen.com/wp-content/uploads/2018/08/Strawberry-Milkshake-square.jpg">
+            <img src="https://www.unicornsinthekitchen.com/wp-content/uploads/2018/08/Strawberry-Milkshake-square.jpg" alt="Restaurant 3">
+            <h3>Strawberry milkshake</h3>
+            <p>550/- for single</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Choclate Shake" data-price="450" data-image="https://www.sugarandsoul.co/wp-content/uploads/2021/04/chocolate-milkshake-8-500x500.jpg">
+            <img src="https://www.sugarandsoul.co/wp-content/uploads/2021/04/chocolate-milkshake-8-500x500.jpg" alt="Restaurant 3">
+            <h3>Choclate Shake</h3>
+            <p>450/- for single</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Vada" data-price="50" data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjL1ZxLxv6ZiFPCRJwyd9fF1YUCBEZYIUomg&s">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjL1ZxLxv6ZiFPCRJwyd9fF1YUCBEZYIUomg&s" alt="Restaurant 3">
+            <h3>Vada</h3>
+            <p>50/- </p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Fried Chicken" data-price="850" data-image="https://static.toiimg.com/thumb/61589069.cms?width=1200&height=900">
+            <img src="https://static.toiimg.com/thumb/61589069.cms?width=1200&height=900" alt="Restaurant 3">
+            <h3>Fried Chicken</h3>
+            <p>850/- for single</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Paneer 65" data-price="550" data-image="https://sinfullyspicy.com/wp-content/uploads/2024/11/3-3.jpg">
+            <img src="https://sinfullyspicy.com/wp-content/uploads/2024/11/3-3.jpg" alt="Restaurant 3">
+            <h3>Paneer 65</h3>
+            <p>550/- for single</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+        <div class="restaurant-card" data-name="Paneer Tikka" data-price="350" data-image="https://eatsbythebeach.com/wp-content/uploads/2022/06/Decadent-No-Churn-Chocolate-Ice-Cream-1-Eats-By-The-Beach.jpeg">
+            <img src="https://eatsbythebeach.com/wp-content/uploads/2022/06/Decadent-No-Churn-Chocolate-Ice-Cream-1-Eats-By-The-Beach.jpeg" alt="Restaurant 3">
+            <h3>Choclate Ice Cream</h3>
+            <p>500/- 500g</p>
+            <button class="add-to-cart">Add to cart</button>
+        </div>
+       
+       
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Zomato | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    
+
+</body>
+</html>

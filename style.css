@@ -1,0 +1,223 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    background-color: #e60000; /* Zomato Red */
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    align-items: center;
+}
+
+.navbar .logo a {
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar nav ul li {
+    display: inline;
+}
+
+.navbar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.navbar nav ul li a:hover {
+    color: #ffcc00;
+}
+
+.hero {
+    background-color: #ffcc00;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.hero button {
+    padding: 10px 20px;
+    background-color: #e60000;
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.hero button:hover {
+    background-color: #ff5c5c;
+}
+
+/* Slider Section */
+.slider {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 50px auto;
+    overflow: hidden;
+}
+
+.slide-container {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 100%;
+    height: auto;
+}
+
+.slider img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    transform: translateY(-50%);
+}
+
+.slider-nav span {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.restaurant-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10%;
+  }
+  
+  .restaurant-card {
+    background-color: white;
+    width: 30%;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 5%;
+    text-align: center;
+  }
+  
+  #restaurant-list :hover{
+     transform: scale(1.05);
+     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+     cursor: pointer;
+     transition: transform 0.3s ease;
+  }
+
+  .restaurant-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.cart-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+.cart-item img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+.quantity-controls button {
+    background-color: #c82d2d;
+    border: 1px solid #bbb;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+.remove-button {
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.total-price {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.individual-price {
+    font-size: 14px;
+    color: green;
+}
+
+a {
+    display: block;  
+    text-align: center;  
+    margin-top: 20px; 
+}
+
+
+.placeorder-btn {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #e60000;  
+    color: white;  
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 200px; 
+    margin: 0 auto; 
+}
+
+.placeorder-btn:hover {
+    background-color: #ffcc00;  
+}
+
+.placeorder-btn:focus {
+    outline: none;  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);  
+}

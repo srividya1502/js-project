@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Your Cart</h1>
+
+    <div id="cart-list"></div>
+
+    <div class="total-price" id="total-price">
+        Total Price: ₹0
+    </div>
+    <a href="placeorder.html"><button class="placeorder-btn">placeorder</button></a>
+
+    <script>
+       
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+       
+        function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        
+        function calculateTotalPrice() {
+            let totalPrice = 0;
+            cart.forEach(item => {
+                totalPrice += item.price * item.quantity;
+            });
+            return totalPrice;
+        }
+
+      
+        function removeFromCart(event) {
+            const itemName = event.target.getAttribute('data-name');
+            cart = cart.filter(item => item.name !== itemName);
+            updateCart();
+        }
+
+       
+        function increaseQuantity(event) {
+            const itemName = event.target.getAttribute('data-name');
+            const item = cart.find(item => item.name === itemName);
+            if (item) {
+                item.quantity += 1;
+                updateCart();
+            }
+        }
+
+        
+        function decreaseQuantity(event) {
+            const itemName = event.target.getAttribute('data-name');
+            const item = cart.find(item => item.name === itemName);
+            if (item && item.quantity > 1) {
+                item.quantity -= 1;
+                updateCart();
+            }
+        }
+
+       
+        function renderCart() {
+            const cartList = document.getElementById('cart-list');
+            cartList.innerHTML = ''; 
+
+            if (cart.length === 0) {
+                cartList.innerHTML = '<p>Your cart is empty!</p>';
+            } else {
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('cart-item');
+
+                    const individualPrice = item.price * item.quantity; 
+
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div>
+                            <h4>${item.name}</h4>
+                            <p>Price: ₹${item.price} | Quantity: ${item.quantity}</p>
+                            <p class="individual-price">Total for this item: ₹${individualPrice}</p> 
+                        </div>
+                        <div class="quantity-controls">
+                            <button class="decrease" data-name="${item.name}">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="increase" data-name="${item.name}">+</button>
+                            <button class="remove-button" data-name="${item.name}">Remove</button>
+                        </div>
+                    `;
+
+                   
+                    cartItem.querySelector('.increase').addEventListener('click', increaseQuantity);
+                    cartItem.querySelector('.decrease').addEventListener('click', decreaseQuantity);
+                    cartItem.querySelector('.remove-button').addEventListener('click', removeFromCart);
+
+                    cartList.appendChild(cartItem);
+                });
+            }
+
+            
+            const totalPrice = calculateTotalPrice();
+            document.getElementById('total-price').innerText = `Total Price: ₹${totalPrice}`;
+        }
+
+       
+        renderCart();
+    </script>
+
+</body>
+</html>

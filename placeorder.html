@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place Order</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+   
+    #orderForm {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px; 
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: inline-block;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    button {
+      background-color: #007bff; 
+      color: white;
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      background-color: rgba(0, 0, 0, 0.4); 
+      overflow: auto; 
+      padding-top: 60px;
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+    }
+
+  
+    .close {
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+      position: absolute;
+      right: 20px;
+      top: 10px;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+  
+    #orderSummary h3 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    #orderSummary p {
+      font-size: 16px;
+      color: #555;
+      margin: 10px 0;
+    }
+
+    #paymentStatus {
+      font-weight: bold;
+      color: green;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>Place Your Order</h1>
+
+  <form id="orderForm">
+    <label for="items">Items (comma separated):</label><br>
+    <input type="text" id="items" required><br><br>
+    
+    <label for="totalAmount">Total Amount ($):</label><br>
+    <input type="number" id="totalAmount" required><br><br>
+
+    <h2>Payment Details</h2>
+    <label for="cardNumber">Card Number:</label><br>
+    <input type="text" id="cardNumber" required><br><br>
+
+    <label for="expirationDate">Expiration Date (MM/YY):</label><br>
+    <input type="text" id="expirationDate" required><br><br>
+
+    <label for="cvv">CVV:</label><br>
+    <input type="text" id="cvv" required><br><br>
+
+    <label for="billingAddress">Billing Address:</label><br>
+    <input type="text" id="billingAddress" required><br><br>
+
+    <button type="submit">Place Order</button>
+  </form>
+
+  
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Order Summary</h3>
+      <p id="orderDetails"></p>
+      <p id="paymentStatus"></p>
+    </div>
+  </div>
+
+  <script>
+    class PaymentDetails {
+      constructor(cardNumber, expirationDate, cvv, billingAddress) {
+        this.cardNumber = cardNumber;
+        this.expirationDate = expirationDate;
+        this.cvv = cvv;
+        this.billingAddress = billingAddress;
+      }
+
+      getMaskedCardNumber() {
+        return `**** **** **** ${this.cardNumber.slice(-4)}`;
+      }
+    }
+
+    class Order {
+      constructor(orderId, items, totalAmount, paymentDetails) {
+        this.orderId = orderId;
+        this.items = items;
+        this.totalAmount = totalAmount;
+        this.paymentDetails = paymentDetails;
+      }
+
+      getOrderSummary() {
+        return `
+          Order ID: ${this.orderId}
+          Items Ordered: ${this.items.join(', ')}
+          Total Amount: $${this.totalAmount.toFixed(2)}
+          Payment Details: ${this.paymentDetails.getMaskedCardNumber()}
+        `;
+      }
+    }
+
+    class PaymentGateway {
+      static processPayment(order) {
+        if (order.totalAmount <= 1000) {
+          return true; 
+        } else {
+          return false; 
+        }
+      }
+    }
+
+    
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const items = document.getElementById('items').value.split(',').map(item => item.trim());
+      const totalAmount = parseFloat(document.getElementById('totalAmount').value);
+      const cardNumber = document.getElementById('cardNumber').value;
+      const expirationDate = document.getElementById('expirationDate').value;
+      const cvv = document.getElementById('cvv').value;
+      const billingAddress = document.getElementById('billingAddress').value;
+
+      const paymentDetails = new PaymentDetails(cardNumber, expirationDate, cvv, billingAddress);
+
+      const orderId = Math.floor(Math.random() * 1000) + 1000; // Random Order ID
+      const order = new Order(orderId, items, totalAmount, paymentDetails);
+
+      const paymentSuccessful = PaymentGateway.processPayment(order);
+
+      const modal = document.getElementById('orderModal');
+      const orderDetails = document.getElementById('orderDetails');
+      const paymentStatus = document.getElementById('paymentStatus');
+      
+      orderDetails.textContent = order.getOrderSummary();
+      paymentStatus.textContent = paymentSuccessful 
+        ? 'Payment Successful! Order has been placed.' 
+        : 'Payment Failed! Please check your payment details and try again.';
+      
+      modal.style.display = 'block';
+    });
+
+        document.querySelector('.close').onclick = function() {
+      document.getElementById('orderModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == document.getElementById('orderModal')) {
+        document.getElementById('orderModal').style.display = 'none';
+      }
+    }
+  </script>
+
+</body>
+</html>
